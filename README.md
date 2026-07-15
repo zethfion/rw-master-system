@@ -11,6 +11,26 @@ RW Master System is an open Agent Skill and plugin for building private, source-
 
 It teaches an agent to inventory sources, preserve evidence, distill reusable frameworks, create an honest expert profile, and teach a human how to use the result. It ships the method, templates, and offline validation tools—not anyone's private corpus.
 
+## What changes for the user
+
+Before, useful knowledge may be scattered across books, videos, podcasts, articles, email, and notes. A general AI can produce a plausible answer, but it may be difficult to tell which source supports it, whether it reflects the expert's actual method, or what the model does not know.
+
+RW Master System helps turn authorized material into a private expert package you can consult inside Codex, Claude Code, or Grok. Once a small MVP is built, you can:
+
+- Ask a real work question instead of searching through the source library yourself.
+- Receive a relevant framework and a practical recommendation with evidence anchors, tradeoffs, and explicit unknowns.
+- Apply an expert's method to strategy, writing, review, or decision-making without asking the AI to impersonate that person or overwrite your own voice.
+- Compare multiple expert packages while preserving genuine disagreement rather than forcing one blended answer.
+- Add new authorized material incrementally, with changes remaining traceable instead of rebuilding everything from scratch.
+
+A typical consultation can be as simple as:
+
+```text
+Review this launch plan using the expert package. Show which framework applies, cite the supporting sources, separate evidence from inference, and tell me what is still unknown.
+```
+
+The agent selects the relevant framework cards, retrieves only the source excerpts needed for the question, and returns an answer you can inspect rather than merely trust. You remain in control of the source boundary, privacy, and final judgment.
+
 ## What this repository contains
 
 - `skills/master-system-builder/SKILL.md`: the reusable agent workflow.
