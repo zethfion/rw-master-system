@@ -4,7 +4,7 @@ Project identifier: `rw-master-system`
 
 Package schema: `rw-master-system/v1`
 
-Distribution version: `0.2.0`
+Distribution version: `0.2.1`
 
 The identifier is intentionally visible in generated manifests so artifacts can describe which public workflow and version created their initial structure. It does not establish ownership of user data, contact a remote service, or prevent forks from changing it.
 

@@ -1,5 +1,12 @@
 # RW Master System
 
+[English](README.md) | [繁體中文](README.zh-TW.md)
+
+[![CI](https://github.com/zethfion/rw-master-system/actions/workflows/ci.yml/badge.svg)](https://github.com/zethfion/rw-master-system/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/zethfion/rw-master-system)](https://github.com/zethfion/rw-master-system/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Platforms](https://img.shields.io/badge/Platforms-Codex%20%7C%20Claude%20Code%20%7C%20Grok-6f42c1)](#install-the-v021-plugin)
+
 RW Master System is an open Agent Skill and plugin for building private, source-grounded AI expert knowledge systems from public or user-authorized materials. The same canonical skill works in Codex, Claude Code, and Grok; each platform receives only a thin native manifest.
 
 It teaches an agent to inventory sources, preserve evidence, distill reusable frameworks, create an honest expert profile, and teach a human how to use the result. It ships the method, templates, and offline validation tools—not anyone's private corpus.
@@ -20,12 +27,12 @@ It teaches an agent to inventory sources, preserve evidence, distill reusable fr
 - A prebuilt imitation of a real person.
 - Telemetry or hidden network callbacks.
 
-## Install the v0.2.0 plugin
+## Install the v0.2.1 plugin
 
 ### Codex
 
 ```bash
-codex plugin marketplace add zethfion/rw-master-system --ref v0.2.0
+codex plugin marketplace add zethfion/rw-master-system --ref v0.2.1
 codex plugin add rw-master-system@rw-master-system
 ```
 
@@ -43,7 +50,7 @@ Start a new Claude Code session. Invoke `/rw-master-system:master-system-builder
 ### Grok
 
 ```bash
-grok plugin install zethfion/rw-master-system@v0.2.0
+grok plugin install zethfion/rw-master-system@v0.2.1
 ```
 
 Start a new Grok session. Invoke `/master-system-builder` or describe the task naturally.
@@ -90,7 +97,29 @@ Generated packages include a private-by-default `.gitignore`, `PRIVACY.md`, disa
 
 ## Provenance
 
-Packages initialized by the included script contain the transparent identifier `rw-master-system/v1` and generating skill version `0.2.0`. This is a public origin marker, not tracking: no usage data leaves the user's machine.
+Packages initialized by the included script contain the transparent identifier `rw-master-system/v1` and generating skill version `0.2.1`. This is a public origin marker, not tracking: no usage data leaves the user's machine.
+
+## Community and contact
+
+- Questions, ideas, and collaboration: [GitHub Discussions](https://github.com/zethfion/rw-master-system/discussions)
+- Reproducible bugs and feature requests: [GitHub Issues](https://github.com/zethfion/rw-master-system/issues)
+- Sensitive security reports: [GitHub Private Vulnerability Reporting](https://github.com/zethfion/rw-master-system/security/advisories/new)
+
+Do not post private source material, personal data, paid content, credentials, or security evidence in public Issues or Discussions. The GitHub noreply address stored in commit metadata is an attribution address, not a monitored contact inbox.
+
+## Contributing
+
+Documentation fixes, tests, and narrowly scoped improvements are welcome. For substantial workflow or schema changes, start with a Discussion or Issue so the evidence, privacy, and compatibility boundaries are clear.
+
+Work on a branch, open a pull request into `main`, and run:
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/validate_distribution.py
+python3 skills/master-system-builder/scripts/audit_public_release.py .
+```
+
+Keep `skills/master-system-builder/` as the single canonical skill. Platform manifests must remain thin adapters and must not duplicate `SKILL.md`.
 
 ## License
 

@@ -91,6 +91,18 @@ def main() -> int:
     if (ROOT / "LICENSE").read_bytes() != (ROOT / "skills" / SKILL_NAME / "LICENSE").read_bytes():
         errors.append("root and standalone-skill LICENSE files differ")
 
+    for relative in ("README.md", "README.zh-TW.md", "PROVENANCE.md", "CHANGELOG.md"):
+        path = ROOT / relative
+        if not path.is_file():
+            errors.append(f"missing distribution document: {relative}")
+            continue
+        if version not in path.read_text(encoding="utf-8"):
+            errors.append(f"distribution version missing from {relative}")
+    if "README.zh-TW.md" not in (ROOT / "README.md").read_text(encoding="utf-8"):
+        errors.append("English README must link to the Traditional Chinese README")
+    if "README.md" not in (ROOT / "README.zh-TW.md").read_text(encoding="utf-8"):
+        errors.append("Traditional Chinese README must link to the English README")
+
     evals = load_json(ROOT / "evals" / "cases.json", errors)
     if not isinstance(evals, dict) or evals.get("schema") != "rw-master-system/evals/v1":
         errors.append("evals/cases.json schema mismatch")

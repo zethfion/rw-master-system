@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "rw-master-system",
   "displayName": "RW Master System",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Build and audit private, source-grounded AI expert knowledge systems.",
   "author": {
     "name": "RW / musubi-lab"

@@ -23,7 +23,7 @@ SECRET_PATTERNS = {
     "Windows private path": re.compile(r"[A-Za-z]:\\Users\\(?!<|example|username)[^\\\s]+\\"),
 }
 HIDDEN_CHARS = {"\u200b", "\u200c", "\u200d", "\u202a", "\u202b", "\u202d", "\u202e", "\u2066", "\u2067", "\u2068", "\u2069", "\ufeff"}
-SENSITIVE_NAMES = {"config.yaml", "config.yml", ".mcp.json", "credentials.json", "cookies.txt"}
+SENSITIVE_NAMES = {".mcp.json", "credentials.json", "cookies.txt"}
 SENSITIVE_SUFFIXES = (".pem", ".key", ".p12", ".pfx")
 EMAIL = re.compile(r"(?i)\b[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})\b")
 ALLOWED_EMAIL_DOMAINS = {"users.noreply.github.com", "example.com", "example.invalid"}
