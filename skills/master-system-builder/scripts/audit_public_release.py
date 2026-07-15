@@ -23,10 +23,11 @@ SECRET_PATTERNS = {
     "Windows private path": re.compile(r"[A-Za-z]:\\Users\\(?!<|example|username)[^\\\s]+\\"),
 }
 HIDDEN_CHARS = {"\u200b", "\u200c", "\u200d", "\u202a", "\u202b", "\u202d", "\u202e", "\u2066", "\u2067", "\u2068", "\u2069", "\ufeff"}
-SENSITIVE_NAMES = {"config.yaml", "config.yml", ".mcp.json", "credentials.json", "cookies.txt"}
+SENSITIVE_NAMES = {".mcp.json", "credentials.json", "cookies.txt"}
 SENSITIVE_SUFFIXES = (".pem", ".key", ".p12", ".pfx")
 EMAIL = re.compile(r"(?i)\b[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})\b")
 ALLOWED_EMAIL_DOMAINS = {"users.noreply.github.com", "example.com", "example.invalid"}
+ALLOWED_EMAIL_ADDRESSES = {"noreply@github.com", "actions@github.com"}
 MAX_BLOB_BYTES = 2_000_000
 
 
@@ -52,12 +53,16 @@ def sensitive_name(name: str) -> bool:
     return lower in SENSITIVE_NAMES or lower == ".env" or lower.startswith(".env.") or lower.endswith(SENSITIVE_SUFFIXES)
 
 
+def allowed_email(match: re.Match[str]) -> bool:
+    return match.group(0).lower() in ALLOWED_EMAIL_ADDRESSES or match.group(1).lower() in ALLOWED_EMAIL_DOMAINS
+
+
 def scan_text(text: str, label: str, findings: list[str]) -> None:
     for secret_label, pattern in SECRET_PATTERNS.items():
         if pattern.search(text):
             findings.append(f"{secret_label}: {label}")
     for match in EMAIL.finditer(text):
-        if match.group(1).lower() not in ALLOWED_EMAIL_DOMAINS:
+        if not allowed_email(match):
             findings.append(f"personal email address: {label}")
             break
     if any(char in text for char in HIDDEN_CHARS):
@@ -90,7 +95,7 @@ def audit_git_history(root: Path, findings: list[str]) -> None:
             commit, author_email, committer_email = parts
             for value in (author_email, committer_email):
                 match = EMAIL.fullmatch(value.strip())
-                if match and match.group(1).lower() not in ALLOWED_EMAIL_DOMAINS:
+                if match and not allowed_email(match):
                     findings.append(f"personal email in commit metadata: {commit[:12]}")
                     break
 
@@ -101,7 +106,7 @@ def audit_git_history(root: Path, findings: list[str]) -> None:
         for line in tags.stdout.splitlines():
             tag_name, _, tagger = line.partition("\x00")
             match = EMAIL.search(tagger)
-            if match and match.group(1).lower() not in ALLOWED_EMAIL_DOMAINS:
+            if match and not allowed_email(match):
                 findings.append(f"personal email in tag metadata: {tag_name}")
 
     objects = run_git(root, "rev-list", "--objects", "--all")

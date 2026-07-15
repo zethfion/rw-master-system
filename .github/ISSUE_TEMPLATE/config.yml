@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions, ideas, and collaboration
+    url: https://github.com/zethfion/rw-master-system/discussions
+    about: Use Discussions for support questions, design ideas, and collaboration proposals.
+  - name: Private security report
+    url: https://github.com/zethfion/rw-master-system/security/advisories/new
+    about: Report suspected vulnerabilities privately. Do not post sensitive evidence in an Issue.

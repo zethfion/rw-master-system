@@ -78,7 +78,7 @@ class ScriptTests(unittest.TestCase):
             package = self.initialize(directory)
             manifest = json.loads((package / ".master-system.json").read_text(encoding="utf-8"))
             self.assertEqual(manifest["schema"], "rw-master-system/v1")
-            self.assertEqual(manifest["generator"]["version"], "0.2.0")
+            self.assertEqual(manifest["generator"]["version"], "0.2.1")
             self.assertFalse(manifest["generator"]["network_telemetry"])
             self.assertFalse(manifest["public_release_allowed"])
             self.assertTrue((package / ".gitignore").is_file())
@@ -187,6 +187,34 @@ class ScriptTests(unittest.TestCase):
             result = run_script("audit_public_release.py", str(root), "--working-tree-only")
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("symlink requires manual review", result.stderr)
+
+    def test_audit_allows_nonsensitive_tooling_config(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = root / ".github" / "ISSUE_TEMPLATE" / "config.yml"
+            config.parent.mkdir(parents=True)
+            config.write_text("blank_issues_enabled: true\n", encoding="utf-8")
+            result = run_script("audit_public_release.py", str(root), "--working-tree-only")
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_audit_allows_github_generated_merge_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            (root / "README.md").write_text("synthetic fixture\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(root), "add", "README.md"], check=True)
+            env = os.environ.copy()
+            env.update(
+                {
+                    "GIT_AUTHOR_NAME": "GitHub",
+                    "GIT_COMMITTER_NAME": "GitHub",
+                    "GIT_AUTHOR_EMAIL": "noreply" + "@" + "github.com",
+                    "GIT_COMMITTER_EMAIL": "noreply" + "@" + "github.com",
+                }
+            )
+            subprocess.run(["git", "-C", str(root), "commit", "-q", "-m", "fixture"], check=True, env=env)
+            result = run_script("audit_public_release.py", str(root))
+            self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_audit_detects_personal_email_in_git_metadata_without_echoing_it(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

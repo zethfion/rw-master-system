@@ -10,7 +10,7 @@
       "name": "rw-master-system",
       "source": "./",
       "description": "Build and audit private, source-grounded AI expert knowledge systems.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "RW / musubi-lab"
       },
