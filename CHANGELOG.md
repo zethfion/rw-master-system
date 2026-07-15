@@ -5,7 +5,8 @@
 - Add a complete Traditional Chinese README, language navigation, status badges, and public contact routes.
 - Enable GitHub Discussions and add Issue-routing and pull-request templates.
 - Stop treating every generic `config.yml` or `config.yaml` filename as sensitive while continuing to scan its contents for secrets.
-- Add a regression test for legitimate tooling configuration files.
+- Allow GitHub's documented noreply merge identity in PR merge refs without allowing arbitrary `github.com` addresses.
+- Add regression tests for legitimate tooling configuration files and GitHub-generated merge commits.
 
 ## 0.2.0 - 2026-07-15
 

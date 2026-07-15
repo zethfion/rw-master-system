@@ -197,6 +197,25 @@ class ScriptTests(unittest.TestCase):
             result = run_script("audit_public_release.py", str(root), "--working-tree-only")
             self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_audit_allows_github_generated_merge_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            (root / "README.md").write_text("synthetic fixture\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(root), "add", "README.md"], check=True)
+            env = os.environ.copy()
+            env.update(
+                {
+                    "GIT_AUTHOR_NAME": "GitHub",
+                    "GIT_COMMITTER_NAME": "GitHub",
+                    "GIT_AUTHOR_EMAIL": "noreply" + "@" + "github.com",
+                    "GIT_COMMITTER_EMAIL": "noreply" + "@" + "github.com",
+                }
+            )
+            subprocess.run(["git", "-C", str(root), "commit", "-q", "-m", "fixture"], check=True, env=env)
+            result = run_script("audit_public_release.py", str(root))
+            self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_audit_detects_personal_email_in_git_metadata_without_echoing_it(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
