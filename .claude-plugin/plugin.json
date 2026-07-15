@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "rw-master-system",
+  "displayName": "RW Master System",
+  "version": "0.2.0",
+  "description": "Build and audit private, source-grounded AI expert knowledge systems.",
+  "author": {
+    "name": "RW / musubi-lab"
+  },
+  "homepage": "https://github.com/zethfion/rw-master-system",
+  "repository": "https://github.com/zethfion/rw-master-system",
+  "license": "MIT",
+  "keywords": ["agent-skill", "knowledge-system", "provenance", "research"],
+  "skills": "./skills/"
+}

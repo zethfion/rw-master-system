@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rw-master-system",
+  "description": "Cross-platform tools for private, evidence-grounded expert knowledge systems.",
+  "owner": {
+    "name": "RW / musubi-lab"
+  },
+  "plugins": [
+    {
+      "name": "rw-master-system",
+      "source": "./",
+      "description": "Build and audit private, source-grounded AI expert knowledge systems.",
+      "version": "0.2.0",
+      "author": {
+        "name": "RW / musubi-lab"
+      },
+      "homepage": "https://github.com/zethfion/rw-master-system",
+      "repository": "https://github.com/zethfion/rw-master-system",
+      "license": "MIT",
+      "category": "Productivity",
+      "tags": ["knowledge", "provenance", "research"]
+    }
+  ]
+}

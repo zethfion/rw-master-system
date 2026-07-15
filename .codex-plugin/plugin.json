@@ -1,0 +1,27 @@
+{
+  "name": "rw-master-system",
+  "version": "0.2.0",
+  "description": "Build and audit private, source-grounded AI expert knowledge systems.",
+  "author": {
+    "name": "RW / musubi-lab",
+    "url": "https://github.com/zethfion"
+  },
+  "homepage": "https://github.com/zethfion/rw-master-system",
+  "repository": "https://github.com/zethfion/rw-master-system",
+  "license": "MIT",
+  "keywords": ["agent-skill", "knowledge-system", "provenance", "research"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "RW Master System",
+    "shortDescription": "Build evidence-grounded expert systems",
+    "longDescription": "Create private expert knowledge packages with explicit source boundaries, evidence links, privacy controls, and deterministic local validation.",
+    "developerName": "RW / musubi-lab",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/zethfion/rw-master-system",
+    "defaultPrompt": [
+      "Use RW Master System to plan a private expert knowledge package.",
+      "Audit my expert package for evidence, privacy, and release readiness."
+    ]
+  }
+}

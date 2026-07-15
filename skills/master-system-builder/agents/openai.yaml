@@ -1,0 +1,4 @@
+interface:
+  display_name: "RW Master System Builder"
+  short_description: "Build source-grounded AI expert knowledge systems"
+  default_prompt: "Use $master-system-builder to build a source-grounded AI expert system from materials I am authorized to use."

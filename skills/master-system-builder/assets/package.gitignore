@@ -1,0 +1,18 @@
+# Private-by-default expert package
+.DS_Store
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+credentials*.json
+cookies*.txt
+corpus/
+consultations/
+distillates/
+private/
+secrets/
+tmp/
+temp/
+*.log
